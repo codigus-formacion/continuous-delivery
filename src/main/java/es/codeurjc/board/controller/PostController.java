@@ -12,7 +12,7 @@ import es.codeurjc.board.service.PostService;
 
 @Controller
 public class PostController {
-
+//nada
 	@Autowired
 	private PostService postService;
 

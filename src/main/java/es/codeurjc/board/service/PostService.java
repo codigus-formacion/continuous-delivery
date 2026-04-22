@@ -8,7 +8,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import org.springframework.stereotype.Service;
 
 import es.codeurjc.board.model.Post;
-
+// Esto es un comentario
 @Service
 public class PostService {
 
