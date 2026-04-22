@@ -12,7 +12,7 @@ import es.codeurjc.board.service.PostService;
 
 @Controller
 public class PostController {
-//PRUEBA
+//PRUEBA2
 	@Autowired
 	private PostService postService;
 
