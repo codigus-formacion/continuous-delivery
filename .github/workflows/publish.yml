@@ -1,8 +1,13 @@
 name: Publish in DockerHub
 
 on:  
-  workflow_dispatch:
 
+push:
+  branches:
+    - main
+  paths:
+    - 'src/**'
+    - 'pom.xml'
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -21,3 +26,16 @@ jobs:
         run: docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" -p "${{ secrets.DOCKERHUB_TOKEN }}" 
       - name: Push image to DockerHub
         run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/posts:v1
+
+
+#Vamos a hacer que las versiones del workflow y pom.xml coincidan
+
+name: Generate tag
+run: echo "tag=$(mvn -q help:evaluate -Dexpression=project.version -DforceStdout)" >> $GITHUB_OUTPUT #capturamos la tag
+id: project
+
+name: Generate Docker image
+ run: |
+    mvn spring-boot:build-image -DskipTests
+          -Dspring-boot.build-image.imageName=
+                ${{ secrets.DOCKERHUB_USERNAME }}/posts:${{ steps.project.outputs.tag }}
